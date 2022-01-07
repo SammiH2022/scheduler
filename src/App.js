@@ -1,4 +1,6 @@
 import React from 'react';
+import './App.css';
+
 
 const schedule = {
   "title": "CS Courses for 2018-2019",
@@ -31,7 +33,7 @@ const Banner = ({ title }) => (
 );
 
 const CourseList = ({ courses }) => (
-  <div>
+  <div className="course-list">
     { Object.values(courses).map(course => <Course key={course.id} course={ course } />) }
   </div>
 );

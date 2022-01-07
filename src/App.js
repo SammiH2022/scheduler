@@ -49,7 +49,7 @@ const getCourseNumber = course => (
 );
 
 const Course = ({ course }) => (
-  <div className="card">
+  <div className="card m-1 p-2">
     <div className="card-body">
       <div className="card-title">{ getCourseTerm(course) } CS { getCourseNumber(course) }</div>
       <div className="card-text">{ course.title }</div>
@@ -58,7 +58,7 @@ const Course = ({ course }) => (
 );
 
 const App = () =>  (
-  <div>
+  <div className="container">
     <Banner title={ schedule.title } />
     <CourseList courses={ schedule.courses } />
   </div>

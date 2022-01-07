@@ -47,8 +47,11 @@ const getCourseNumber = course => (
 );
 
 const Course = ({ course }) => (
-  <div>
-    { getCourseTerm(course) } CS { getCourseNumber(course) }: { course.title }
+  <div className="card">
+    <div className="card-body">
+      <div className="card-title">{ getCourseTerm(course) } CS { getCourseNumber(course) }</div>
+      <div className="card-text">{ course.title }</div>
+    </div>
   </div>
 );
 

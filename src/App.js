@@ -34,8 +34,8 @@ const Banner = ({ title }) => (
 
 const TermButton = ({term, setTerm, checked}) => (
   <>
-    <input type="radio" id={term} className="btn-check" autoComplete="off"
-      checked={checked} onChange={() => setTerm(term)}/>
+    <input type="radio" id={term} className="btn-check" checked={checked} autoComplete="off"
+      onChange={() => setTerm(term)} />
     <label class="btn btn-success m-1 p-2" htmlFor={term}>
     { term }
     </label>
@@ -52,6 +52,15 @@ const TermSelector = ({term, setTerm}) => (
   </div>
 );
 
+/*
+const isSelected = selected.includes(course);
+const style = { isSelected ? '#B0E5A4' : 'white' };
+*/
+
+const toggle = (x, lst) => (
+  lst.includes(x) ? lst.filter(y => y !== x) : [x, ...lst]
+);
+
 const CourseList = ({ courses }) => {
   const [term, setTerm] = useState('Fall');
   const termCourses = Object.values(courses).filter(course => term === getCourseTerm(course));
@@ -62,7 +71,7 @@ const CourseList = ({ courses }) => {
       <div className="course-list">
       { termCourses.map(course => <Course key={course.id} course={ course } />) }
       </div>
-    </>
+   </>
   );
 };
 
@@ -76,14 +85,23 @@ const getCourseNumber = course => (
   course.id.slice(1, 4)
 );
 
-const Course = ({ course }) => (
-  <div className="card m-1 p-2">
-    <div className="card-body">
-      <div className="card-title">{ getCourseTerm(course) } CS { getCourseNumber(course) }</div>
-      <div className="card-text">{ course.title }</div>
+const Course = ({ course, selected, setSelected }) => {
+  const isSelected = selected.includes(course);
+  const style = {
+    backgroundColor: isSelected ? 'lightgreen' : 'white'
+  };
+  return (
+    <div className="card m-1 p-2" 
+      style={style}
+      onClick={() => setSelected(toggle(course, selected))}>
+      <div className="card-body">
+        <div className="card-title">{ getCourseTerm(course) } CS { getCourseNumber(course) }</div>
+        <div className="card-text">{ course.title }</div>
+        <div className="card-text">{ course.meets }</div>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const App = () => {
   const [schedule, setSchedule] = useState();
